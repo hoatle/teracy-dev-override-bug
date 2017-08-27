@@ -1,0 +1,28 @@
+{
+  "provisioners": [{
+    "_id": "0",
+    "json": {
+      "data_configs": [{
+        "_id": "data_configs_0",
+        "project": "app",
+        // convention for env vars: <alias_name> = $DATA_STORAGE_<ALIAS_NAME>
+        // convention for data storage name: ds-<github_user|proj_namespace>-<github_repo|proj>
+        // convention for data branch: data branch will be normalized to match our branch normalized for Docker tag
+        // users can use git branch or normalized git branch, they should work the same
+        "storages": {
+          "local": "file:///backups/hoatle/app", // $APP_DATA_STORAGE_LOCAL env var for local backups
+          "origin": "gs://ds-hoatle-app", // $APP_DATA_STORAGE_ORIGIN, for example: gs://ds-hoatle-app
+          "upstream": "gs://ds-teracy-app", // $APP_DATA_STORAGE_UPSTREAM
+          // additional storages, add as many as you wish
+          "hoatle": "gs://ds-hoatle-app" // $APP_DATA_STORAGE_HOATLE
+        },
+        "usage": { // specify the default usage when $ vagrant provision
+          "storage": "upstream", // $APP_DATA_USAGE_STORAGE can choose one of local, origin or upstream when provisioning
+          "branch": "develop", // $APP_DATA_USAGE_BRANCH the target working branch
+          "time": "", // $APP_DATA_USAGE_TIME empty means the latest, use the time format from data.sh list <alias>
+          "force_reset": false // set this to be true to reset the backup when provisioning
+        }
+      }]
+    }
+  }]
+}
