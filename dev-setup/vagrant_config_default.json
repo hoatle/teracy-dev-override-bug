@@ -13,6 +13,7 @@
       },
       "data_configs": [{
         "_id": "data_configs_0",
+        "_op": "a",
         "project": "app",
         // convention for env vars: <alias_name> = $DATA_STORAGE_<ALIAS_NAME>
         // convention for data storage name: ds-<github_user|proj_namespace>-<github_repo|proj>
